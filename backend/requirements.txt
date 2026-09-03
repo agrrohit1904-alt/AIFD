@@ -1,0 +1,15 @@
+fastapi==0.110.0
+uvicorn==0.28.0
+pydantic==2.6.3
+pydantic-settings==2.2.1
+python-multipart==0.0.9
+Pillow>=10.0.0
+numpy>=1.24.0
+mrz>=0.6.1
+torch
+torchvision
+opencv-python-headless
+pytesseract
+insightface
+onnxruntime
+pyzbar
