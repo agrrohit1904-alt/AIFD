@@ -3,10 +3,12 @@ import pytesseract
 from PIL import Image
 import io
 import re
+import os
 from pyzbar.pyzbar import decode
 
-# Point pytesseract to the explicit Windows path since it's not in the system PATH
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+# Only set explicit path on Windows. On Linux (HuggingFace), it's in the system PATH.
+if os.name == 'nt':
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 def parse_mrz(mrz_text: str) -> dict:
     """
