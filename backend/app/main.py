@@ -12,11 +12,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Allow CORS for local frontend testing
+# Allow CORS for Vercel/Cloudflare 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify exactly the frontend domains
-    allow_credentials=True,
+    allow_origins=["*"], 
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
