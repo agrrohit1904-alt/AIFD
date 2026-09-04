@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import Webcam from 'react-webcam';
 import axios from 'axios';
-import { Shield, UploadCloud, Camera, CheckCircle, AlertTriangle, SwitchCamera, Scan, Activity, Fingerprint, ChevronRight } from 'lucide-react';
+import { Shield, UploadCloud, Camera, CheckCircle, AlertTriangle, SwitchCamera, Scan, Activity, Fingerprint, ChevronRight, Database } from 'lucide-react';
 
 export default function Dashboard() {
   const [docMode, setDocMode] = useState<'upload' | 'camera'>('upload');
