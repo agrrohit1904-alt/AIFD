@@ -132,11 +132,11 @@ export default function Dashboard() {
   return (
     <div className="max-w-6xl mx-auto p-6">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
-          <FileText className="text-blue-600" />
+        <h1 className="text-3xl font-bold text-slate-100 flex items-center gap-2">
+          <FileText className="text-cyan-400" />
           Identity Document Verification
         </h1>
-        <p className="text-gray-500 mt-2">Upload or capture a passport/ID and a live selfie for automated risk assessment</p>
+        <p className="text-slate-400 mt-2">Upload or capture a passport/ID and a live selfie for automated risk assessment</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -144,15 +144,15 @@ export default function Dashboard() {
         <div className="space-y-6">
           
           {/* Document Capture */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-slate-800 p-6 rounded-lg shadow-sm border border-slate-700">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold flex items-center gap-2">
-                <ImageIcon className="w-5 h-5 text-gray-600" />
+                <ImageIcon className="w-5 h-5 text-slate-300" />
                 1. ID Document
               </h2>
               <button 
                 onClick={() => setDocMode(docMode === 'upload' ? 'camera' : 'upload')}
-                className="text-sm flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                className="text-sm flex items-center gap-1 text-cyan-400 hover:text-cyan-200"
               >
                 <SwitchCamera className="w-4 h-4" />
                 {docMode === 'upload' ? 'Use Camera' : 'Upload File'}
@@ -161,23 +161,23 @@ export default function Dashboard() {
 
             {docMode === 'upload' ? (
               <>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors">
+                <div className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:bg-slate-800/50 transition-colors">
                   <input type="file" id="doc-upload" className="hidden" accept="image/*" onChange={handleDocChange} />
                   <label htmlFor="doc-upload" className="cursor-pointer flex flex-col items-center justify-center gap-2">
-                    <UploadCloud className="w-10 h-10 text-gray-400" />
-                    <span className="text-gray-600 font-medium">Click to select ID image</span>
+                    <UploadCloud className="w-10 h-10 text-slate-500" />
+                    <span className="text-slate-300 font-medium">Click to select ID image</span>
                   </label>
                 </div>
                 {docPreviewUrl && (
                   <div className="mt-4 text-center">
-                    <img src={docPreviewUrl} alt="Doc preview" className="max-h-40 rounded-md border border-gray-200 object-contain mx-auto" />
+                    <img src={docPreviewUrl} alt="Doc preview" className="max-h-40 rounded-md border border-slate-700 object-contain mx-auto" />
                     <button onClick={() => { setDocumentFile(null); setDocPreviewUrl(null); }} className="text-red-500 text-sm mt-2">Clear</button>
                   </div>
                 )}
               </>
             ) : (
               <div className="flex flex-col items-center">
-                <div className="rounded-lg overflow-hidden border border-gray-300 mb-3 bg-gray-100">
+                <div className="rounded-lg overflow-hidden border border-slate-600 mb-3 bg-slate-700">
                   <Webcam
                     audio={false}
                     ref={docWebcamRef}
@@ -186,7 +186,7 @@ export default function Dashboard() {
                     className="w-full max-h-48 object-cover"
                   />
                 </div>
-                <button onClick={captureDoc} className="bg-blue-100 text-blue-700 px-4 py-2 rounded font-medium hover:bg-blue-200 flex items-center gap-2">
+                <button onClick={captureDoc} className="bg-cyan-900/40 text-cyan-300 px-4 py-2 rounded font-medium hover:bg-cyan-800/60 flex items-center gap-2">
                   <Camera className="w-4 h-4" /> Capture ID
                 </button>
               </div>
@@ -194,15 +194,15 @@ export default function Dashboard() {
           </div>
 
           {/* Live Selfie Capture */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-slate-800 p-6 rounded-lg shadow-sm border border-slate-700">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold flex items-center gap-2">
-                <Camera className="w-5 h-5 text-gray-600" />
+                <Camera className="w-5 h-5 text-slate-300" />
                 2. Live Selfie
               </h2>
               <button 
                 onClick={() => setLiveMode(liveMode === 'upload' ? 'camera' : 'upload')}
-                className="text-sm flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                className="text-sm flex items-center gap-1 text-cyan-400 hover:text-cyan-200"
               >
                 <SwitchCamera className="w-4 h-4" />
                 {liveMode === 'upload' ? 'Use Camera' : 'Upload File'}
@@ -211,23 +211,23 @@ export default function Dashboard() {
 
             {liveMode === 'upload' ? (
               <>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors">
+                <div className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:bg-slate-800/50 transition-colors">
                   <input type="file" id="live-upload" className="hidden" accept="image/*" onChange={handleLiveChange} />
                   <label htmlFor="live-upload" className="cursor-pointer flex flex-col items-center justify-center gap-2">
-                    <UploadCloud className="w-10 h-10 text-gray-400" />
-                    <span className="text-gray-600 font-medium">Click to select selfie</span>
+                    <UploadCloud className="w-10 h-10 text-slate-500" />
+                    <span className="text-slate-300 font-medium">Click to select selfie</span>
                   </label>
                 </div>
                 {livePreviewUrl && (
                   <div className="mt-4 text-center">
-                    <img src={livePreviewUrl} alt="Selfie preview" className="max-h-40 rounded-md border border-gray-200 object-contain mx-auto" />
+                    <img src={livePreviewUrl} alt="Selfie preview" className="max-h-40 rounded-md border border-slate-700 object-contain mx-auto" />
                     <button onClick={() => { setLiveFile(null); setLivePreviewUrl(null); }} className="text-red-500 text-sm mt-2">Clear</button>
                   </div>
                 )}
               </>
             ) : (
               <div className="flex flex-col items-center">
-                <div className="rounded-lg overflow-hidden border border-gray-300 mb-3 bg-gray-100">
+                <div className="rounded-lg overflow-hidden border border-slate-600 mb-3 bg-slate-700">
                   <Webcam
                     audio={false}
                     ref={liveWebcamRef}
@@ -236,7 +236,7 @@ export default function Dashboard() {
                     className="w-full max-h-48 object-cover"
                   />
                 </div>
-                <button onClick={captureLive} className="bg-blue-100 text-blue-700 px-4 py-2 rounded font-medium hover:bg-blue-200 flex items-center gap-2">
+                <button onClick={captureLive} className="bg-cyan-900/40 text-cyan-300 px-4 py-2 rounded font-medium hover:bg-cyan-800/60 flex items-center gap-2">
                   <Camera className="w-4 h-4" /> Capture Selfie
                 </button>
               </div>
@@ -248,7 +248,7 @@ export default function Dashboard() {
             <button
               onClick={handleUpload}
               disabled={loading || !documentFile || !liveFile}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 disabled:bg-blue-400 transition-colors font-medium text-lg shadow-sm"
+              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 px-4 rounded-md hover:from-cyan-400 hover:to-blue-500 disabled:from-slate-700 disabled:to-slate-700 disabled:text-slate-500 transition-colors font-medium text-lg shadow-sm"
             >
               {loading ? 'Processing Pipeline...' : 'Run Full Verification'}
             </button>
@@ -265,13 +265,13 @@ export default function Dashboard() {
           )}
 
           {result && (
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <div className="bg-slate-800 p-6 rounded-lg shadow-sm border border-slate-700">
               <div className="flex items-center justify-between mb-6 border-b pb-4">
                 <h2 className="text-xl font-semibold">7-Step Verification Pipeline</h2>
                 <div className="text-right">
-                  <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">Risk Score</p>
+                  <p className="text-sm text-slate-400 uppercase tracking-wide font-semibold">Risk Score</p>
                   <p className={`text-4xl font-bold ${getRiskColor(result.risk_score)}`}>
-                    {result.risk_score} <span className="text-lg text-gray-400">/ 100</span>
+                    {result.risk_score} <span className="text-lg text-slate-500">/ 100</span>
                   </p>
                 </div>
               </div>
@@ -287,28 +287,28 @@ export default function Dashboard() {
                   { step: '6. Database / Rule Checks', status: result.signals.document_expired !== 'Yes' && result.signals.blacklist_match !== 'Yes', detail: 'Checked Expiry & Blacklist' },
                   { step: '7. Explainable Risk Score', status: true, detail: `Score: ${result.risk_score}/100 generated` }
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-100">
+                  <div key={idx} className="flex items-center gap-3 p-3 bg-slate-800/50 rounded border border-slate-700">
                     {item.status ? (
                       <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                     ) : (
                       <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0" />
                     )}
                     <div className="flex-grow flex justify-between items-center">
-                      <span className="font-semibold text-gray-800">{item.step}</span>
-                      <span className="text-sm text-gray-600 truncate max-w-[200px]">{item.detail}</span>
+                      <span className="font-semibold text-slate-100">{item.step}</span>
+                      <span className="text-sm text-slate-300 truncate max-w-[200px]">{item.detail}</span>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-gray-100">
-                <h3 className="font-medium text-gray-800">Raw Signal Breakdown</h3>
+              <div className="space-y-4 pt-4 border-t border-slate-700">
+                <h3 className="font-medium text-slate-100">Raw Signal Breakdown</h3>
                 
                 <div className="grid gap-3">
                   {Object.entries(result.signals).map(([key, value]) => (
-                    <div key={key} className="flex justify-between items-center p-3 bg-gray-50 rounded border border-gray-100">
-                      <span className="text-gray-600 capitalize font-medium">{key.replace(/_/g, ' ')}</span>
-                      <span className="font-semibold text-gray-800 text-right ml-4">
+                    <div key={key} className="flex justify-between items-center p-3 bg-slate-800/50 rounded border border-slate-700">
+                      <span className="text-slate-300 capitalize font-medium">{key.replace(/_/g, ' ')}</span>
+                      <span className="font-semibold text-slate-100 text-right ml-4">
                         {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                       </span>
                     </div>
@@ -316,7 +316,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-gray-100 flex items-center text-sm text-gray-500 gap-2">
+              <div className="mt-6 pt-4 border-t border-slate-700 flex items-center text-sm text-slate-400 gap-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
                 Document ID: {result.document_id}
               </div>
@@ -324,8 +324,8 @@ export default function Dashboard() {
           )}
 
           {!result && !error && (
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center text-gray-500 flex flex-col items-center justify-center h-full min-h-[300px]">
-              <AlertTriangle className="w-12 h-12 text-gray-300 mb-3" />
+            <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 text-center text-slate-400 flex flex-col items-center justify-center h-full min-h-[300px]">
+              <AlertTriangle className="w-12 h-12 text-slate-600 mb-3" />
               <p>Provide both an ID and a Live Selfie via upload or camera, then run verification to see the results here.</p>
             </div>
           )}

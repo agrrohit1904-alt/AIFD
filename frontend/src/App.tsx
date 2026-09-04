@@ -1,52 +1,52 @@
 import React, { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import AdminDashboard from './components/AdminDashboard';
-import { Shield, Database } from 'lucide-react';
+import { ShieldCheck, Database } from 'lucide-react';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'verify' | 'admin'>('verify');
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Top Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+    <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-cyan-500/30">
+      <nav className="bg-slate-800/80 backdrop-blur-md border-b border-slate-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <Shield className="h-8 w-8 text-blue-600" />
-                <span className="ml-2 font-bold text-xl text-gray-900 tracking-tight">KYC Verify</span>
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-lg shadow-cyan-500/20">
+                <ShieldCheck className="w-7 h-7 text-white" />
               </div>
-              <div className="ml-10 flex space-x-8">
-                <button
-                  onClick={() => setActiveTab('verify')}
-                  className={`${
-                    activeTab === 'verify'
-                      ? 'border-blue-500 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
-                >
-                  User Portal
-                </button>
-                <button
-                  onClick={() => setActiveTab('admin')}
-                  className={`${
-                    activeTab === 'admin'
-                      ? 'border-blue-500 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
-                >
-                  <Database className="w-4 h-4 mr-1"/>
-                  Admin Logs
-                </button>
-              </div>
+              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 tracking-tight">
+                Nexus Identity AI
+              </h1>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setActiveTab('verify')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  activeTab === 'verify'
+                    ? 'bg-slate-700 text-cyan-400 shadow-inner'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'
+                }`}
+              >
+                Verification Portal
+              </button>
+              <button
+                onClick={() => setActiveTab('admin')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  activeTab === 'admin'
+                    ? 'bg-slate-700 text-cyan-400 shadow-inner'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'
+                }`}
+              >
+                <Database className="w-4 h-4 mr-1 inline" />
+                Admin Logs
+              </button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Main Content Area */}
-      <main className="flex-1 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'verify' ? <Dashboard /> : <AdminDashboard />}
       </main>
     </div>
