@@ -82,7 +82,12 @@ export default function Dashboard() {
       const response = await axios.post(`${API_BASE_URL}/api/v1/document/verify`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      setResult(response.data);
+      
+      if (typeof response.data === 'string') {
+        setError("Cloudflare Error: Backend server is unreachable or crashed.");
+      } else {
+        setResult(response.data);
+      }
     } catch (err: any) {
       setError(err.response?.data?.detail || "An error occurred during verification.");
     } finally {
@@ -238,13 +243,13 @@ export default function Dashboard() {
                 <div className="flex justify-between items-center relative z-10">
                   <div>
                     <h2 className="text-2xl font-bold text-white mb-1">Analysis Complete</h2>
-                    <p className="text-slate-400 text-sm font-mono tracking-widest">ID: {result.document_id.split('-')[0]}</p>
+                    <p className="text-slate-400 text-sm font-mono tracking-widest">ID: {result.document_id ? result.document_id.split('-')[0] : 'UNKNOWN'}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Risk Score</p>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-5xl font-black tracking-tighter ${result.risk_score > 70 ? 'text-red-500' : result.risk_score > 30 ? 'text-yellow-400' : 'text-emerald-400'}`}>
-                        {result.risk_score}
+                        {result.risk_score || 0}
                       </span>
                       <span className="text-slate-500 font-bold text-xl">/100</span>
                     </div>
@@ -259,12 +264,12 @@ export default function Dashboard() {
                 <div className="space-y-2 mb-8 flex-1">
                   {[
                     { step: 'Document Input', status: true, detail: 'High-res image acquired', icon: <UploadCloud size={16}/> },
-                    { step: 'OCR Engine', status: !!result.signals.document_type || !!result.signals.qr_code_validated, detail: result.signals.document_type || 'Text decoded successfully', icon: <Scan size={16}/> },
-                    { step: 'Cryptographic MRZ', status: true, detail: result.signals.mrz_validation === 'Failed' ? 'Invalid structure' : 'Integrity verified', icon: <Database size={16}/> },
-                    { step: 'Adversarial Defense', status: result.signals.tampering_detected !== 'Yes', detail: result.signals.tampering_detected === 'Yes' ? 'Anomalies detected' : 'No forgery signatures', icon: <Shield size={16}/> },
-                    { step: 'ArcFace Biometrics', status: result.signals.face_match !== 'Match Failed', detail: result.signals.face_match, icon: <Fingerprint size={16}/> },
-                    { step: 'Compliance DB', status: result.signals.document_expired !== 'Yes' && result.signals.blacklist_match !== 'Yes', detail: 'Passed watchlists', icon: <Activity size={16}/> },
-                    { step: 'Decision Matrix', status: true, detail: `Calculated Risk: ${result.risk_score}%`, icon: <CheckCircle size={16}/> }
+                    { step: 'OCR Engine', status: !!result?.signals?.document_type || !!result?.signals?.qr_code_validated, detail: result?.signals?.document_type || 'Text decoded successfully', icon: <Scan size={16}/> },
+                    { step: 'Cryptographic MRZ', status: true, detail: result?.signals?.mrz_validation === 'Failed' ? 'Invalid structure' : 'Integrity verified', icon: <Database size={16}/> },
+                    { step: 'Adversarial Defense', status: result?.signals?.tampering_detected !== 'Yes', detail: result?.signals?.tampering_detected === 'Yes' ? 'Anomalies detected' : 'No forgery signatures', icon: <Shield size={16}/> },
+                    { step: 'ArcFace Biometrics', status: result?.signals?.face_match !== 'Match Failed', detail: result?.signals?.face_match || 'Analyzed', icon: <Fingerprint size={16}/> },
+                    { step: 'Compliance DB', status: result?.signals?.document_expired !== 'Yes' && result?.signals?.blacklist_match !== 'Yes', detail: 'Passed watchlists', icon: <Activity size={16}/> },
+                    { step: 'Decision Matrix', status: true, detail: `Calculated Risk: ${result.risk_score || 0}%`, icon: <CheckCircle size={16}/> }
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center gap-4 p-3 bg-slate-900/50 rounded-xl border border-slate-700/50 hover:border-slate-600 transition-colors group">
                       <div className={`p-2 rounded-lg ${item.status ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
