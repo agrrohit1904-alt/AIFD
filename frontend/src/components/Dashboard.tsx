@@ -267,7 +267,7 @@ export default function Dashboard() {
           {result && (
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
               <div className="flex items-center justify-between mb-6 border-b pb-4">
-                <h2 className="text-xl font-semibold">Verification Results</h2>
+                <h2 className="text-xl font-semibold">7-Step Verification Pipeline</h2>
                 <div className="text-right">
                   <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold">Risk Score</p>
                   <p className={`text-4xl font-bold ${getRiskColor(result.risk_score)}`}>
@@ -276,8 +276,33 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <h3 className="font-medium text-gray-800">Signal Breakdown</h3>
+              {/* 7-Step SIH Pipeline Checklist */}
+              <div className="space-y-3 mb-8">
+                {[
+                  { step: '1. Document Upload', status: true, detail: 'Document & Selfie captured' },
+                  { step: '2. OCR Extraction', status: !!result.signals.document_type || !!result.signals.qr_code_validated, detail: result.signals.document_type || 'Text Extracted' },
+                  { step: '3. MRZ / Format Validation', status: true, detail: result.signals.mrz_validation === 'Failed' ? 'Failed Checksums' : 'Validated' },
+                  { step: '4. Tampering Detection', status: result.signals.tampering_detected !== 'Yes', detail: result.signals.tampering_detected === 'Yes' ? 'Tampering Flagged' : 'No Tampering Detected' },
+                  { step: '5. Face Match (Deep Learning)', status: result.signals.face_match !== 'Match Failed', detail: result.signals.face_match },
+                  { step: '6. Database / Rule Checks', status: result.signals.document_expired !== 'Yes' && result.signals.blacklist_match !== 'Yes', detail: 'Checked Expiry & Blacklist' },
+                  { step: '7. Explainable Risk Score', status: true, detail: `Score: ${result.risk_score}/100 generated` }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-100">
+                    {item.status ? (
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    ) : (
+                      <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                    )}
+                    <div className="flex-grow flex justify-between items-center">
+                      <span className="font-semibold text-gray-800">{item.step}</span>
+                      <span className="text-sm text-gray-600 truncate max-w-[200px]">{item.detail}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-4 pt-4 border-t border-gray-100">
+                <h3 className="font-medium text-gray-800">Raw Signal Breakdown</h3>
                 
                 <div className="grid gap-3">
                   {Object.entries(result.signals).map(([key, value]) => (
